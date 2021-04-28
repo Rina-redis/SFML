@@ -58,7 +58,7 @@ namespace Game
                 }
 
                // MoveRight(offsetX, offsetY, ball);
-                moveRight=TryToGetCollision(rightPlayer, leftPlayer, ball);
+                moveRight= TryMoveRight(rightPlayer, leftPlayer, ball);
                 if (moveRight)
                 {
                     MoveRight(offsetX, offsetY, ball);
@@ -67,9 +67,7 @@ namespace Game
                 {
                     MoveLeft(offsetX, offsetY, ball);
                 }
-                
-
-                
+                             
                 window.Draw(leftPlayer);
                 window.Draw(rightPlayer);
                 window.Draw(ball);
@@ -84,13 +82,12 @@ namespace Game
             RenderWindow w = (RenderWindow)sender;
             w.Close();
         }
-        static bool TryToGetCollision(Shape rightPlayer, Shape leftPlayer, Shape ball)
+        static bool TryMoveRight(Shape rightPlayer, Shape leftPlayer, Shape ball)
         {
             if (ball.Position.X > rightPlayer.Position.X)
             {
                 return false;
             }
-
             return true;
         }
         //static SFML.System.Vector2f TryToGetCollision(Shape rightPlayer, Shape leftPlayer, Shape ball)
