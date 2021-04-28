@@ -75,53 +75,54 @@ namespace Game
                 window.DispatchEvents();              
                 window.Display();
             }
+            void WindowClosed(object sender, EventArgs e)
+            {
+                RenderWindow w = (RenderWindow)sender;
+                w.Close();
+            }
+            bool TryMoveRight(Shape rightPlayer, Shape leftPlayer, Shape ball)
+            {
+                if (ball.Position.X > rightPlayer.Position.X)
+                {
+                    return false;
+                }
+                return true;
+            }
+            //static SFML.System.Vector2f TryToGetCollision(Shape rightPlayer, Shape leftPlayer, Shape ball)
+            //{
+            //    if(ball.Position.X > rightPlayer.Position.X)
+            //    {
+            //        return -ball.Position;
+            //    }
+            //    return ball.Position;
+            //}
+            void MoveRight(float deltaX, float deltaY, Shape shape)
+            {
+                SFML.System.Vector2f pos = shape.Position;
+                SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X + deltaX, pos.Y);
+                shape.Position = newPos;
+            }
+            void MoveLeft(float deltaX, float deltaY, Shape shape)
+            {
+                SFML.System.Vector2f pos = shape.Position;
+                SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X - deltaX, pos.Y);
+                shape.Position = newPos;
+            }
+            void MoveUp(float deltaX, float deltaY, Shape shape)
+            {
+                SFML.System.Vector2f pos = shape.Position;
+                SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X, pos.Y + deltaY);
+                shape.Position = newPos;
+            }
+            void MoveDown(float deltaX, float deltaY, Shape shape)
+            {
+                SFML.System.Vector2f pos = shape.Position;
+                SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X, pos.Y - deltaY);
+                shape.Position = newPos;
+            }
         }
         
-        static void WindowClosed(object sender, EventArgs e)
-        {
-            RenderWindow w = (RenderWindow)sender;
-            w.Close();
-        }
-        static bool TryMoveRight(Shape rightPlayer, Shape leftPlayer, Shape ball)
-        {
-            if (ball.Position.X > rightPlayer.Position.X)
-            {
-                return false;
-            }
-            return true;
-        }
-        //static SFML.System.Vector2f TryToGetCollision(Shape rightPlayer, Shape leftPlayer, Shape ball)
-        //{
-        //    if(ball.Position.X > rightPlayer.Position.X)
-        //    {
-        //        return -ball.Position;
-        //    }
-        //    return ball.Position;
-        //}
-        static void MoveRight(float deltaX, float deltaY, Shape shape)
-        {
-            SFML.System.Vector2f pos = shape.Position;
-            SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X + deltaX, pos.Y);
-            shape.Position = newPos;
-        }
-        static void MoveLeft(float deltaX, float deltaY, Shape shape)
-        {
-            SFML.System.Vector2f pos = shape.Position;
-            SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X - deltaX,pos.Y);
-            shape.Position = newPos;
-        }
-        static void MoveUp(float deltaX, float deltaY, Shape shape)
-        {
-            SFML.System.Vector2f pos = shape.Position;
-            SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X, pos.Y + deltaY);
-            shape.Position = newPos;
-        }
-        static void MoveDown(float deltaX, float deltaY, Shape shape)
-        {
-            SFML.System.Vector2f pos = shape.Position;
-            SFML.System.Vector2f newPos = new SFML.System.Vector2f(pos.X , pos.Y-deltaY);
-            shape.Position = newPos;
-        }
+       
     }
 }
 
