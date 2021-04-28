@@ -63,6 +63,10 @@ namespace Game
                 {
                     MoveRight(offsetX, offsetY, ball);
                 }
+                else
+                {
+                    MoveLeft(offsetX, offsetY, ball);
+                }
                 
 
                 
