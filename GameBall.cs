@@ -8,7 +8,7 @@ using SFML.System;
 
 namespace SFML
 {
-   public struct GameBall
+   public class GameBall
     {
         public CircleShape shape;
         public Vector2f direction;

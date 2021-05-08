@@ -9,7 +9,7 @@ using SFML.System;
 
 namespace SFML
 {
-    public struct Player
+    public class Player
     {
         public RectangleShape shape;
         public float width;
