@@ -8,75 +8,70 @@ using System.Collections.Generic;
 namespace SFML
 {
     public class Game
-    {
-        static float offsetX = 20f;
-        static float offsetY = 40f;
-        static List<Shape> allShapesToDraw = new List<Shape>();
+    { 
+        static List<Shape> allShapesToDraw = new List<Shape>();      
+        Vector2f direction = new Vector2f(-1,0);
         public void Start()
         {
             RenderWindow window = new RenderWindow(new VideoMode(1600, 900), "Game window");
 
             (Player leftPlayer, Player rightPlayer) = CreatePlayers();
-            CircleShape ball = new CircleShape();
-            ball.Position = new Vector2f(800, 420);
-            ball.Radius = 30;
-            ball.FillColor = Color.Red;
-
+            GameBall ball = new GameBall(30,500,420,Color.Red,allShapesToDraw);
+           
             window.Closed += WindowClosed;
-          
-            bool moveRight;
+            window.SetFramerateLimit(600);
 
             while (window.IsOpen)
             {
-                //System.Threading.Thread.Sleep(50);
+  
                 window.Clear();
 
                 TryToMoveLeftPlayer(leftPlayer);
                 TryToMoveRightPlayer(rightPlayer);
-
-               
-                //moveRight = TryMoveRight(rightPlayer, leftPlayer, ball);
-                //if (moveRight)
-                //{
-                //    MoveRight(offsetX, offsetY, ball);
-                //}
-                //else
-                //{
-                //    MoveLeft(offsetX, offsetY, ball);
-                //}
-
-
-                window.DispatchEvents();
-                window.Display();
-                DrawAllShapes(window);
-
-            }
-
-            
-
-            bool TryMoveRight(Shape rightPlayer, Shape leftPlayer, Shape ball)
-            {
-                if (ball.Position.X > rightPlayer.Position.X)
+                NormalizeSpeed();
+                MoveBall(ball.shape, direction);
+                CheckIntersectionWithFloorAndWalls(ball.shape);
+              
+                if (leftPlayer.CheckIntersection(ball.shape))                
                 {
-                    return false;
+                    ball.shape.FillColor = Color.Yellow;
+                    SetRandomDirection();                 
                 }
-                return true;
-            }      
+                if (rightPlayer.CheckIntersection(ball.shape))
+                {
+                    ball.shape.FillColor = Color.Red;
+                    SetRandomDirection();
+                }
+               
+                DrawAllShapes(window);              
+                window.DispatchEvents();
+                window.Display();                              
+            }
         }
+
+
         void WindowClosed(object sender, EventArgs e)
         {
             RenderWindow w = (RenderWindow)sender;
             w.Close();
         }
+         public void CheckIntersectionWithFloorAndWalls(CircleShape ball)
+        {
+            if(ball.Position.Y + ball.Radius*2 >= 900||ball.Position.Y < -10 )
+            {
+                direction = new Vector2f(direction.X, -direction.Y);
+            }
+                
+        }
         public (Player player1, Player player2) CreatePlayers()
         {
-            Player player1 = new Player(50, 0, 400, Color.Blue, allShapesToDraw);
-            Player player2 = new Player(50, 1500, 400, Color.Magenta, allShapesToDraw);
+            Player player1 = new Player(50, 0, 320, Color.Blue, allShapesToDraw);
+            Player player2 = new Player(50, 1540, 320, Color.Magenta, allShapesToDraw);
             return (player1, player2);
         }
         public void DrawAllShapes(RenderWindow window)
         {
-            foreach(Shape shape in allShapesToDraw)
+            foreach (Shape shape in allShapesToDraw)
             {
                 window.Draw(shape);
             }
@@ -102,6 +97,51 @@ namespace SFML
             {
                 RightPlayer.MoveUp();
             }
+        }
+        public void NormalizeSpeed()
+        {
+            if (direction.X > 2)
+                direction.X = direction.X - 1;
+            if (direction.Y > 2)
+                direction.Y = direction.Y - 1;
+        }
+        public void MoveBall(Shape ball, Vector2f dir)
+        {
+           
+         //   Vector2f direction = new Vector2f(dir. * Constants.speed, dir.X * Constants.speed);
+            ball.Position += direction*Constants.speed;
+        }
+
+        public void ChangeDirection()
+        {
+            direction = -direction;
+        }
+        public void SetRandomDirection()
+        {
+            Random random = new Random();
+           
+            float X = (float)random.NextDouble();
+            float Y = (float)random.NextDouble();
+
+            if (X < 0.5)
+                X = 2 * X;
+            if (Y < 0.5)
+                Y = 2 * Y;
+
+
+            if (direction.X >= 0)
+                direction.X =  X;
+            if (direction.X <= 0)
+                direction.X = - X;
+            if (direction.X >= 0)
+                direction.Y = + Y;
+            if (direction.X <= 0)
+                direction.Y = - Y;
+
+
+
+
+            direction = new Vector2f(-direction.X*Constants.speed , -direction.Y * Constants.speed);
         }
     }
 }

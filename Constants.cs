@@ -6,7 +6,8 @@ namespace SFML
 {
     struct Constants
     {
-        public static int deltaY = 40;
-        public static int deltaX = 20;
+        public static float deltaY = 2f;
+        public static float deltaX = 2f;
+        public static float speed = 1f;
     }
 }

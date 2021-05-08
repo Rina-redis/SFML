@@ -11,25 +11,29 @@ namespace SFML
 {
     public struct Player
     {
-        public CircleShape shape;
+        public RectangleShape shape;
+        public float width;
+        public float height;
 
         public Player( int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
-            shape = new CircleShape();     
-            shape.Radius = Radius;
+            shape = new RectangleShape();
+            width = 60f;
+            height = 250f;
+            shape.Size = new Vector2f(60, 250);
             shape.Position = new Vector2f(xPosition, yPosition);
             shape.FillColor = Color;
-
+            
             allShapes.Add(shape);
         }
 
         public void MoveUp()
         {
             Vector2f pos = shape.Position;
-            Vector2f newPos = new Vector2f(pos.X, pos.Y + Constants.deltaY);
+            Vector2f newPos = new Vector2f(pos.X, pos.Y - Constants.deltaY);
             shape.Position = newPos;
         }
-        public void MoveRight( )
+        public void MoveRight()
         {
             Vector2f pos = shape.Position;
             Vector2f newPos = new Vector2f(pos.X + Constants.deltaX, pos.Y);
@@ -45,8 +49,28 @@ namespace SFML
         public void MoveDown()
         {
             Vector2f pos = shape.Position;
-            Vector2f newPos = new Vector2f(pos.X, pos.Y - Constants.deltaY);
+            Vector2f newPos = new Vector2f(pos.X, pos.Y + Constants.deltaY);
             shape.Position = newPos;
         }
+        public bool CheckIntersection(CircleShape ball)
+        {
+            float boxMinX = shape.Position.X ;
+            float boxMaxX = shape.Position.X + width ;
+            float boxMinY = shape.Position.Y;
+            float boxMaxY = shape.Position.Y + height;
+
+            float x = Math.Max(boxMinX, Math.Min(ball.Position.X, boxMaxX));
+            float y = Math.Max(boxMinY, Math.Min(ball.Position.Y, boxMaxY));
+
+            var distance = Math.Sqrt((x - ball.Position.X) * (x - ball.Position.X) +
+                                     (y - ball.Position.Y) * (y - ball.Position.Y));
+
+
+            if (distance < ball.Radius)
+                return true;
+            else 
+                return false;
+        }
+   
     }
 }
