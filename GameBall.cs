@@ -10,8 +10,7 @@ namespace SFML
 {
    public struct GameBall
     {
-        public CircleShape shape;
-  
+        public CircleShape shape;  
         public GameBall(int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
             shape = new CircleShape();
@@ -20,8 +19,6 @@ namespace SFML
             shape.FillColor = Color;
 
             allShapes.Add(shape);
-        }
-       
-
+        }      
     }
 }

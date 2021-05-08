@@ -22,24 +22,25 @@ namespace SFML
             window.SetFramerateLimit(600);
 
             while (window.IsOpen)
-            {
-  
+            { 
                 window.Clear();
 
                 TryToMoveLeftPlayer(leftPlayer);
                 TryToMoveRightPlayer(rightPlayer);
-                NormalizeSpeed();
+               
                 MoveBall(ball.shape, direction);
                 CheckIntersectionWithFloorAndWalls(ball.shape);
               
                 if (leftPlayer.CheckIntersection(ball.shape))                
                 {
                     ball.shape.FillColor = Color.Yellow;
+                    leftPlayer.AddSore();
                     SetRandomDirection();                 
                 }
                 if (rightPlayer.CheckIntersection(ball.shape))
                 {
                     ball.shape.FillColor = Color.Red;
+                    rightPlayer.AddSore();
                     SetRandomDirection();
                 }
                
@@ -60,8 +61,7 @@ namespace SFML
             if(ball.Position.Y + ball.Radius*2 >= 900||ball.Position.Y < -10 )
             {
                 direction = new Vector2f(direction.X, -direction.Y);
-            }
-                
+            }                
         }
         public (Player player1, Player player2) CreatePlayers()
         {
@@ -98,17 +98,9 @@ namespace SFML
                 RightPlayer.MoveUp();
             }
         }
-        public void NormalizeSpeed()
-        {
-            if (direction.X > 2)
-                direction.X = direction.X - 1;
-            if (direction.Y > 2)
-                direction.Y = direction.Y - 1;
-        }
+       
         public void MoveBall(Shape ball, Vector2f dir)
         {
-           
-         //   Vector2f direction = new Vector2f(dir. * Constants.speed, dir.X * Constants.speed);
             ball.Position += direction*Constants.speed;
         }
 
@@ -123,11 +115,10 @@ namespace SFML
             float X = (float)random.NextDouble();
             float Y = (float)random.NextDouble();
 
-            if (X < 0.5)
+            if (X < 0.4)
                 X = 2 * X;
-            if (Y < 0.5)
+            if (Y < 0.4)
                 Y = 2 * Y;
-
 
             if (direction.X >= 0)
                 direction.X =  X;
@@ -137,9 +128,6 @@ namespace SFML
                 direction.Y = + Y;
             if (direction.X <= 0)
                 direction.Y = - Y;
-
-
-
 
             direction = new Vector2f(-direction.X*Constants.speed , -direction.Y * Constants.speed);
         }

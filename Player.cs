@@ -14,12 +14,14 @@ namespace SFML
         public RectangleShape shape;
         public float width;
         public float height;
+        public int score;
 
         public Player( int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
             shape = new RectangleShape();
             width = 60f;
             height = 250f;
+            score = 0;
             shape.Size = new Vector2f(60, 250);
             shape.Position = new Vector2f(xPosition, yPosition);
             shape.FillColor = Color;
@@ -51,6 +53,10 @@ namespace SFML
             Vector2f pos = shape.Position;
             Vector2f newPos = new Vector2f(pos.X, pos.Y + Constants.deltaY);
             shape.Position = newPos;
+        }
+        public void AddSore()
+        {
+            score++;
         }
         public bool CheckIntersection(CircleShape ball)
         {
