@@ -58,7 +58,7 @@ namespace SFML
         {
             score++;
         }
-        public bool CheckIntersection(CircleShape ball)
+        public bool IsIntersection(CircleShape ball)
         {
             float boxMinX = shape.Position.X ;
             float boxMaxX = shape.Position.X + width ;
@@ -77,6 +77,16 @@ namespace SFML
             else 
                 return false;
         }
-   
+
+        public void CheckIntersectionAndChandeDirection(GameBall ball)
+        {
+            if (IsIntersection(ball.shape))
+            {
+                ball.shape.FillColor = Color.Yellow;
+                AddSore();
+                ball.SetRandomDirection();               
+            }
+        }
+      
     }
 }

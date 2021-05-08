@@ -9,8 +9,8 @@ namespace SFML
 {
     public class Game
     { 
-        static List<Shape> allShapesToDraw = new List<Shape>();      
-        Vector2f direction = new Vector2f(-1,0);
+        static List<Shape> allShapesToDraw = new List<Shape>();
+        Vector2f tempDirection = new Vector2f();
         public void Start()
         {
             RenderWindow window = new RenderWindow(new VideoMode(1600, 900), "Game window");
@@ -27,42 +27,37 @@ namespace SFML
 
                 TryToMoveLeftPlayer(leftPlayer);
                 TryToMoveRightPlayer(rightPlayer);
-               
-                MoveBall(ball.shape, direction);
-                CheckIntersectionWithFloorAndWalls(ball.shape);
-              
-                if (leftPlayer.CheckIntersection(ball.shape))                
+
+                ball.Move();
+                ball.CheckIntersectionWithFloorAndWalls();
+
+                if (leftPlayer.IsIntersection(ball.shape))
                 {
-                    ball.shape.FillColor = Color.Yellow;
+                    ball.SetRandomDirection();
+                    ball.shape.FillColor = Color.Yellow;                  
                     leftPlayer.AddSore();
-                    SetRandomDirection();                 
                 }
-                if (rightPlayer.CheckIntersection(ball.shape))
+                if (rightPlayer.IsIntersection(ball.shape))
                 {
                     ball.shape.FillColor = Color.Red;
+                    ball.SetRandomDirection();
                     rightPlayer.AddSore();
-                    SetRandomDirection();
                 }
-               
+
+               // rightPlayer.CheckIntersectionAndChandeDirection(ball);
+
                 DrawAllShapes(window);              
                 window.DispatchEvents();
                 window.Display();                              
             }
         }
-
-
+        
         void WindowClosed(object sender, EventArgs e)
         {
             RenderWindow w = (RenderWindow)sender;
             w.Close();
         }
-         public void CheckIntersectionWithFloorAndWalls(CircleShape ball)
-        {
-            if(ball.Position.Y + ball.Radius*2 >= 900||ball.Position.Y < -10 )
-            {
-                direction = new Vector2f(direction.X, -direction.Y);
-            }                
-        }
+
         public (Player player1, Player player2) CreatePlayers()
         {
             Player player1 = new Player(50, 0, 320, Color.Blue, allShapesToDraw);
@@ -99,37 +94,29 @@ namespace SFML
             }
         }
        
-        public void MoveBall(Shape ball, Vector2f dir)
-        {
-            ball.Position += direction*Constants.speed;
-        }
+   
+        //public void SetRandomDirection()
+        //{
+        //    Random random = new Random();
 
-        public void ChangeDirection()
-        {
-            direction = -direction;
-        }
-        public void SetRandomDirection()
-        {
-            Random random = new Random();
-           
-            float X = (float)random.NextDouble();
-            float Y = (float)random.NextDouble();
+        //    float X = (float)random.NextDouble();
+        //    float Y = (float)random.NextDouble();
 
-            if (X < 0.4)
-                X = 2 * X;
-            if (Y < 0.4)
-                Y = 2 * Y;
+        //    if (X < 0.4)
+        //        X = 2 * X;
+        //    if (Y < 0.4)
+        //        Y = 2 * Y;
 
-            if (direction.X >= 0)
-                direction.X =  X;
-            if (direction.X <= 0)
-                direction.X = - X;
-            if (direction.X >= 0)
-                direction.Y = + Y;
-            if (direction.X <= 0)
-                direction.Y = - Y;
+        //    if (direction.X >= 0)
+        //        direction.X = X;
+        //    if (direction.X <= 0)
+        //        direction.X = -X;
+        //    if (direction.X >= 0)
+        //        direction.Y = +Y;
+        //    if (direction.X <= 0)
+        //        direction.Y = -Y;
 
-            direction = new Vector2f(-direction.X*Constants.speed , -direction.Y * Constants.speed);
-        }
+        //    direction = new Vector2f(-direction.X * Constants.speed, -direction.Y * Constants.speed);
+        //}
     }
 }
