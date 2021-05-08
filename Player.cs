@@ -16,7 +16,7 @@ namespace SFML
         public float height;
         public int score;
 
-        public Player( int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
+        public Player( int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
             shape = new RectangleShape();
             width = 60f;
@@ -60,10 +60,10 @@ namespace SFML
         }
         public bool IsIntersection(CircleShape ball)
         {
-            float boxMinX = shape.Position.X ;
-            float boxMaxX = shape.Position.X + width ;
+            float boxMinX = shape.Position.X;
+            float boxMaxX = shape.Position.X + width/2 ;
             float boxMinY = shape.Position.Y;
-            float boxMaxY = shape.Position.Y + height;
+            float boxMaxY = shape.Position.Y + height/2;
 
             float x = Math.Max(boxMinX, Math.Min(ball.Position.X, boxMaxX));
             float y = Math.Max(boxMinY, Math.Min(ball.Position.Y, boxMaxY));
@@ -72,7 +72,7 @@ namespace SFML
                                      (y - ball.Position.Y) * (y - ball.Position.Y));
 
 
-            if (distance < ball.Radius)
+            if (distance <= ball.Radius)
                 return true;
             else 
                 return false;

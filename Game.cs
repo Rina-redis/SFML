@@ -9,12 +9,10 @@ namespace SFML
 {
     public class Game
     { 
-        static List<Shape> allShapesToDraw = new List<Shape>();
-        Vector2f tempDirection = new Vector2f();
+        static List<Shape> allShapesToDraw = new List<Shape>();  
+        RenderWindow window = new RenderWindow(new VideoMode(1600, 900), "Game window");
         public void Start()
-        {
-            RenderWindow window = new RenderWindow(new VideoMode(1600, 900), "Game window");
-
+        {         
             (Player leftPlayer, Player rightPlayer) = CreatePlayers();
             GameBall ball = new GameBall(30,500,420,Color.Red,allShapesToDraw);
            
@@ -60,8 +58,8 @@ namespace SFML
 
         public (Player player1, Player player2) CreatePlayers()
         {
-            Player player1 = new Player(50, 0, 320, Color.Blue, allShapesToDraw);
-            Player player2 = new Player(50, 1540, 320, Color.Magenta, allShapesToDraw);
+            Player player1 = new Player(0, 320, Color.Blue, allShapesToDraw);
+            Player player2 = new Player(1540, 320, Color.Magenta, allShapesToDraw);
             return (player1, player2);
         }
         public void DrawAllShapes(RenderWindow window)

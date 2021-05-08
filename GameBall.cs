@@ -29,9 +29,9 @@ namespace SFML
             float X = (float)random.NextDouble();
             float Y = (float)random.NextDouble();
 
-            if (X < 0.5)
+            if (X < 0.7)
                 X = 2 * X;
-            if (Y < 0.5)
+            if (Y < 0.7)
                 Y = 2 * Y;
 
             if (direction.X >= 0)
