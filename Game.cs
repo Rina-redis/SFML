@@ -14,7 +14,7 @@ namespace SFML
         public void Start()
         {         
             (Player leftPlayer, Player rightPlayer) = CreatePlayers();
-            GameBall ball = new GameBall(30,500,420,Color.Red,allShapesToDraw);
+            GameBall ball = new GameBall(40,500,420,Color.Red,allShapesToDraw);
            
             window.Closed += WindowClosed;
             window.SetFramerateLimit(600);
@@ -29,20 +29,8 @@ namespace SFML
                 ball.Move();
                 ball.CheckIntersectionWithFloorAndWalls();
 
-                if (leftPlayer.IsIntersection(ball))
-                {
-                    ball.SetRandomDirection();
-                    ball.shape.FillColor = Color.Yellow;                  
-                    leftPlayer.AddSore();
-                }
-                if (rightPlayer.IsIntersection(ball))
-                {
-                    ball.shape.FillColor = Color.Red;
-                    ball.SetRandomDirection();
-                    rightPlayer.AddSore();
-                }
-
-               // rightPlayer.CheckIntersectionAndChandeDirection(ball);
+                leftPlayer.CheckIntersectionAndChandeDirection(ball);
+                rightPlayer.CheckIntersectionAndChandeDirection(ball);
 
                 DrawAllShapes(window);              
                 window.DispatchEvents();
@@ -91,6 +79,21 @@ namespace SFML
                 RightPlayer.MoveUp();
             }
         }
+
+
+        //OLD CODE BUT MUST BE HERE
+        //if (leftPlayer.IsIntersection(ball)) 
+        //{
+        //    ball.SetRandomDirection();
+        //    ball.shape.FillColor = Color.Yellow;                  
+        //    leftPlayer.AddSore();
+        //}
+        //if (rightPlayer.IsIntersection(ball)) 
+        //{
+        //    ball.shape.FillColor = Color.Red;
+        //    ball.SetRandomDirection();
+        //    rightPlayer.AddSore();
+        //}
 
     }
 }

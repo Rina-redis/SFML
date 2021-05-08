@@ -28,26 +28,12 @@ namespace SFML
             
             allShapes.Add(shape);
         }
-
         public void MoveUp()
         {
             Vector2f pos = shape.Position;
             Vector2f newPos = new Vector2f(pos.X, pos.Y - Constants.deltaY);
             shape.Position = newPos;
         }
-        public void MoveRight()
-        {
-            Vector2f pos = shape.Position;
-            Vector2f newPos = new Vector2f(pos.X + Constants.deltaX, pos.Y);
-            shape.Position = newPos;
-        }
-        public void MoveLeft()
-        {
-            Vector2f pos = shape.Position;
-            Vector2f newPos = new Vector2f(pos.X - Constants.deltaX, pos.Y);
-            shape.Position = newPos;
-        }
-
         public void MoveDown()
         {
             Vector2f pos = shape.Position;
@@ -78,7 +64,7 @@ namespace SFML
                 return false;
         }
 
-        public void CheckIntersectionAndChandeDirection(GameBall ball)
+        public void CheckIntersectionAndChandeDirection(GameBall ball) // work wrong, dont know why
         {
             if (IsIntersection(ball))
             {
@@ -86,7 +72,6 @@ namespace SFML
                 AddSore();
                 ball.SetRandomDirection();               
             }
-        }
-      
+        }     
     }
 }

@@ -14,7 +14,7 @@ namespace SFML
         public Vector2f direction;
         public GameBall(int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
-            direction = new Vector2f(1, 0);
+            direction = new Vector2f(-1, 0);
             shape = new CircleShape();
             shape.Radius = Radius;
             shape.Position = new Vector2f(xPosition, yPosition);
@@ -39,7 +39,7 @@ namespace SFML
             if (direction.X <= 0)
                 direction.X = -X;
             if (direction.X >= 0)
-                direction.Y = +Y;
+                direction.Y = Y;
             if (direction.X <= 0)
                 direction.Y = -Y;
 
