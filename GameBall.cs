@@ -14,7 +14,7 @@ namespace SFML
         public Vector2f direction;
         public GameBall(int Radius, int xPosition, int yPosition, Color Color, List<Shape> allShapes)
         {
-            direction = new Vector2f(-1, 0);
+            direction = new Vector2f(1, 0);
             shape = new CircleShape();
             shape.Radius = Radius;
             shape.Position = new Vector2f(xPosition, yPosition);
@@ -48,6 +48,10 @@ namespace SFML
         public void Move()
         {
             shape.Position += direction * Constants.speed;
+        }
+        public Vector2f Center()
+        {
+            return new Vector2f(shape.Position.X + shape.Radius, shape.Position.Y + shape.Radius);
         }
         public void CheckIntersectionWithFloorAndWalls()
         {

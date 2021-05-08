@@ -29,13 +29,13 @@ namespace SFML
                 ball.Move();
                 ball.CheckIntersectionWithFloorAndWalls();
 
-                if (leftPlayer.IsIntersection(ball.shape))
+                if (leftPlayer.IsIntersection(ball))
                 {
                     ball.SetRandomDirection();
                     ball.shape.FillColor = Color.Yellow;                  
                     leftPlayer.AddSore();
                 }
-                if (rightPlayer.IsIntersection(ball.shape))
+                if (rightPlayer.IsIntersection(ball))
                 {
                     ball.shape.FillColor = Color.Red;
                     ball.SetRandomDirection();

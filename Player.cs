@@ -58,21 +58,21 @@ namespace SFML
         {
             score++;
         }
-        public bool IsIntersection(CircleShape ball)
+        public bool IsIntersection(GameBall ball)
         {
             float boxMinX = shape.Position.X;
-            float boxMaxX = shape.Position.X + width/2 ;
+            float boxMaxX = shape.Position.X + width ;
             float boxMinY = shape.Position.Y;
-            float boxMaxY = shape.Position.Y + height/2;
+            float boxMaxY = shape.Position.Y + height;
 
-            float x = Math.Max(boxMinX, Math.Min(ball.Position.X, boxMaxX));
-            float y = Math.Max(boxMinY, Math.Min(ball.Position.Y, boxMaxY));
+            float x = Math.Max(boxMinX, Math.Min(ball.Center().X, boxMaxX));
+            float y = Math.Max(boxMinY, Math.Min(ball.Center().Y, boxMaxY));
 
-            var distance = Math.Sqrt((x - ball.Position.X) * (x - ball.Position.X) +
-                                     (y - ball.Position.Y) * (y - ball.Position.Y));
+            var distance = Math.Sqrt((x - ball.Center().X) * (x - ball.Center().X) +
+                                     (y - ball.Center().Y) * (y - ball.Center().Y));
 
 
-            if (distance <= ball.Radius)
+            if (distance <= ball.shape.Radius)
                 return true;
             else 
                 return false;
@@ -80,7 +80,7 @@ namespace SFML
 
         public void CheckIntersectionAndChandeDirection(GameBall ball)
         {
-            if (IsIntersection(ball.shape))
+            if (IsIntersection(ball))
             {
                 ball.shape.FillColor = Color.Yellow;
                 AddSore();
