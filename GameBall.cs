@@ -38,9 +38,9 @@ namespace SFML
                 direction.X = X;
             if (direction.X <= 0)
                 direction.X = -X;
-            if (direction.X >= 0)
+            if (direction.Y >= 0)
                 direction.Y = Y;
-            if (direction.X <= 0)
+            if (direction.Y <= 0)
                 direction.Y = -Y;
 
             direction = new Vector2f(-direction.X * Constants.speed, -direction.Y * Constants.speed);
