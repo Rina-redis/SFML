@@ -91,30 +91,6 @@ namespace SFML
                 RightPlayer.MoveUp();
             }
         }
-       
-   
-        //public void SetRandomDirection()
-        //{
-        //    Random random = new Random();
 
-        //    float X = (float)random.NextDouble();
-        //    float Y = (float)random.NextDouble();
-
-        //    if (X < 0.4)
-        //        X = 2 * X;
-        //    if (Y < 0.4)
-        //        Y = 2 * Y;
-
-        //    if (direction.X >= 0)
-        //        direction.X = X;
-        //    if (direction.X <= 0)
-        //        direction.X = -X;
-        //    if (direction.X >= 0)
-        //        direction.Y = +Y;
-        //    if (direction.X <= 0)
-        //        direction.Y = -Y;
-
-        //    direction = new Vector2f(-direction.X * Constants.speed, -direction.Y * Constants.speed);
-        //}
     }
 }
