@@ -54,8 +54,7 @@ namespace SFML
             float x = Math.Max(boxMinX, Math.Min(ball.Center().X, boxMaxX));
             float y = Math.Max(boxMinY, Math.Min(ball.Center().Y, boxMaxY));
 
-            var distance = Math.Sqrt((x - ball.Center().X) * (x - ball.Center().X) +
-                                     (y - ball.Center().Y) * (y - ball.Center().Y));
+            var distance = MathHelper.GetDistance(x, y, ball.Center().X, ball.Center().X);
 
 
             if (distance <= ball.shape.Radius)
@@ -72,6 +71,17 @@ namespace SFML
                 AddSore();
                 ball.SetRandomDirection();               
             }
-        }     
+        }
+        public void TryToMove(Keyboard.Key keyDown, Keyboard.Key keyUp)
+        {
+            if (Keyboard.IsKeyPressed(keyDown))
+            {
+                MoveDown();
+            }
+            if (Keyboard.IsKeyPressed(keyUp))
+            {
+                MoveUp();
+            }
+        }
     }
 }

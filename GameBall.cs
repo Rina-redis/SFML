@@ -26,13 +26,8 @@ namespace SFML
         {
             Random random = new Random();
 
-            float X = (float)random.NextDouble();
-            float Y = (float)random.NextDouble();
-
-            if (X < 0.7)
-                X = 2 * X;
-            if (Y < 0.7)
-                Y = 2 * Y;
+            float X = random.NextFloat(0.7f, 1.4f);
+            float Y = random.NextFloat(0.7f, 1.4f);
 
             if (direction.X >= 0)
                 direction.X = X;

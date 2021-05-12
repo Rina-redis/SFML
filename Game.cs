@@ -23,8 +23,8 @@ namespace SFML
             { 
                 window.Clear();
 
-                TryToMoveLeftPlayer(leftPlayer);
-                TryToMoveRightPlayer(rightPlayer);
+                leftPlayer.TryToMove(Keyboard.Key.S, Keyboard.Key.W);
+                rightPlayer.TryToMove(Keyboard.Key.Down, Keyboard.Key.Up);
 
                 ball.Move();
                 ball.CheckIntersectionWithFloorAndWalls();
@@ -57,43 +57,6 @@ namespace SFML
                 window.Draw(shape);
             }
         }
-        public void TryToMoveLeftPlayer(Player LeftPlayer)
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-            {
-                LeftPlayer.MoveDown();
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
-            {
-                LeftPlayer.MoveUp();
-            }
-        }
-        public void TryToMoveRightPlayer(Player RightPlayer)
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-            {
-                RightPlayer.MoveDown();
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-            {
-                RightPlayer.MoveUp();
-            }
-        }
-
-
-        //OLD CODE BUT MUST BE HERE
-        //if (leftPlayer.IsIntersection(ball)) 
-        //{
-        //    ball.SetRandomDirection();
-        //    ball.shape.FillColor = Color.Yellow;                  
-        //    leftPlayer.AddSore();
-        //}
-        //if (rightPlayer.IsIntersection(ball)) 
-        //{
-        //    ball.shape.FillColor = Color.Red;
-        //    ball.SetRandomDirection();
-        //    rightPlayer.AddSore();
-        //}
 
     }
 }
