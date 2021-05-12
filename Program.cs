@@ -1,9 +1,4 @@
-﻿using SFML.Window;
-using SFML.Graphics;
-using System;
-using SFML;
-using SFML.System;
-
+﻿using System;
 
 namespace SFML
 {

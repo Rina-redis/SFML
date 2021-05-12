@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using SFML.Window;
 using SFML.Graphics;
-using SFML;
 using SFML.System;
 
 
