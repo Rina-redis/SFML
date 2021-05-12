@@ -46,16 +46,13 @@ namespace SFML
         }
         public bool IsIntersection(GameBall ball)
         {
-            float boxMinX = shape.Position.X;
-            float boxMaxX = shape.Position.X + width ;
-            float boxMinY = shape.Position.Y;
-            float boxMaxY = shape.Position.Y + height;
+            (float boxMinX, float boxMaxX) = MathHelper.GetMinAndMaxForRectangle(shape.Position.X, width);
+            (float boxMinY, float boxMaxY) = MathHelper.GetMinAndMaxForRectangle(shape.Position.Y, height);
 
             float x = Math.Max(boxMinX, Math.Min(ball.Center().X, boxMaxX));
             float y = Math.Max(boxMinY, Math.Min(ball.Center().Y, boxMaxY));
 
-            var distance = MathHelper.GetDistance(x, y, ball.Center().X, ball.Center().X);
-
+            float distance = MathHelper.GetDistance(x, y, ball.Center().X, ball.Center().Y);
 
             if (distance <= ball.shape.Radius)
                 return true;
@@ -63,7 +60,7 @@ namespace SFML
                 return false;
         }
 
-        public void CheckIntersectionAndChandeDirection(GameBall ball) // work wrong, dont know why
+        public void CheckIntersectionAndChandeDirection(GameBall ball) 
         {
             if (IsIntersection(ball))
             {

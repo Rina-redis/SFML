@@ -17,5 +17,10 @@ namespace SFML
             return (float)Math.Sqrt((x - ballCenterX) * (x - ballCenterX) +
                                      (y - ballCenterY) * (y - ballCenterY));
         }
+
+        public static (float, float) GetMinAndMaxForRectangle(float coordinate, float delta)
+        {
+            return (coordinate, coordinate+delta);
+        }
     }
 }
