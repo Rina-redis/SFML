@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using SFML.Window;
-using SFML.Graphics;
+using System.Collections;
 using SFML.System;
+using System.Timers;
 
 
 namespace SFML
@@ -24,21 +23,37 @@ namespace SFML
     public class Magnification : Abilitie
     {
         float prozentOfMafnification = 1.6f;
+        Timer timer;
+     
         public Magnification(): base(5,1)
         {
             
         }
 
         public override void Active(Player player)
-        {           
-            
+        {
+            Player cashedPlayer = player;
+            // StartCoroutine(TestCoroutine());
+       
             player.currentAbilitie.currentNumberOfUses++;
             player.width = player.width * prozentOfMafnification;
             player.height = player.height * prozentOfMafnification;
             player.shape.Size =new Vector2f(player.shape.Size.X * prozentOfMafnification, player.shape.Size.Y * prozentOfMafnification);
 
+
         }
 
-      
+        public void Stop((Object source, ElapsedEventArgs e))
+        {
+           
+        }
+         void SetTimer()
+        {
+            timer = new Timer(2000);
+            
+            timer.Elapsed += Stop;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
     }
 }
