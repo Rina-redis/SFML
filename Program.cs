@@ -8,6 +8,7 @@ namespace SFML
         {
             Game game = new Game();
             game.Start();
+            
         }            
     }
 }

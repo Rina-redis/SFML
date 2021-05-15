@@ -26,7 +26,7 @@ namespace SFML
             float X = random.NextFloat(0.7f, 1.4f);
             float Y = random.NextFloat(0.7f, 1.4f);
 
-            if (direction.X >= 0)
+            if (direction.X >= 0) //hah/ shit
                 direction.X = X;
             if (direction.X <= 0)
                 direction.X = -X;

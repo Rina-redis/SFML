@@ -10,22 +10,27 @@ namespace SFML
     public class Player
     {
         public RectangleShape shape;
+        public Abilitie currentAbilitie;
         public float width;
         public float height;
         public int score;
-
-        public Player( int xPosition, int yPosition, Color Color, List<Shape> allShapes)
+        public Dictionary<Keyboard.Key, Abilitie> abilityDictionary;
+     
+        public Player( int xPosition, int yPosition, Color Color, List<Shape> allShapes, Dictionary<Keyboard.Key, Abilitie> AbilityDictionary)
         {
+            currentAbilitie = null;
             shape = new RectangleShape();
+            abilityDictionary = AbilityDictionary;
             width = 60f;
             height = 250f;
             score = 0;
-            shape.Size = new Vector2f(60, 250);
+            shape.Size = new Vector2f(width, height);
             shape.Position = new Vector2f(xPosition, yPosition);
             shape.FillColor = Color;
             
             allShapes.Add(shape);
         }
+       
         public void MoveUp()
         {
             Vector2f pos = shape.Position;
@@ -58,7 +63,8 @@ namespace SFML
                 return false;
         }
 
-        public void CheckIntersectionAndChandeDirection(GameBall ball) 
+
+        public void CheckIntersectionAndChangeDirection(GameBall ball) 
         {
             if (IsIntersection(ball))
             {
@@ -66,6 +72,15 @@ namespace SFML
                 AddSore();
                 ball.SetRandomDirection();               
             }
+        }
+        public void SetAbilityActive()
+        {          
+            if (currentAbilitie.currentNumberOfUses < currentAbilitie.numberOfUses)
+            {
+                currentAbilitie.Active(this);
+            }
+
+            // player.shape.
         }
         public void TryToMove(Keyboard.Key keyDown, Keyboard.Key keyUp)
         {
@@ -77,6 +92,12 @@ namespace SFML
             {
                 MoveUp();
             }
+           
+        }
+
+        public void UseAbility()
+        {
+
         }
     }
 }
